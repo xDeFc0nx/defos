@@ -8,30 +8,6 @@
 - [[#about-defos][About DEFOS]]
 - [[#installing-defos][Installing defos]]
   - [[#installation-instructions][Installation instructions]]
-  - [[#potential-bugs][Potential bugs]]
-- [[#updating-defos][Updating defos]]
-- [[#contributing-to-defos][Contributing to defos]]
-  - [[#edit-readmeorg][Edit README.org]]
-  - [[#test-your-changes-before-pushing][Test your changes before pushing]]
-- [[#shebang-plus-comments][Shebang plus comments]]
-- [[#check-that-user-is-not-root][Check that user is NOT root!]]
-- [[#a-function-for-errors][A function for errors]]
-- [[#sync-the-repos-and-install-dialog][Sync the repos and install 'dialog']]
-- [[#welcome-message][Welcome message]]
-- [[#asking-user-to-confirm-choice-to-install-defos][Asking user to confirm choice to install defos.]]
-- [[#adding-defos-repo-to-pacmanconf][Adding defos repo to pacman.conf.]]
-- [[#adding-keyservers-to-gpgconf][Adding keyservers to gpg.conf.]]
-- [[#receiving-the-pgp-key][Receiving the PGP key]]
-- [[#install-the-packages-from-repositories][Install the packages from repositories]]
-- [[#copy-configs-over-from-etcdefos-into-home][Copy configs over from /etc/defos into $HOME]]
-- [[#install-doom-emacs][Install Doom Emacs]]
-- [[#copy-pacman-hooks][Copy pacman hooks]]
-- [[#copy-dmscripts-config-and-set-important-variables][Copy dmscripts config and set important variables]]
-- [[#compiling-xmonad][Compiling xmonad]]
-- [[#compiling-the-xmonadctl-script][Compiling the xmonadctl script]]
-- [[#set-default-user-shell][Set default USER shell]]
-- [[#enable-sddm-for-login-manager][Enable SDDM for login manager]]
-- [[#message-stating-that-the-installation-is-complete][Message stating that the installation is complete!]]
 
 * About defos
 #+CAPTION: defos Scrot
@@ -48,19 +24,3 @@ cd defos/
 ./defos
 #+end_example
 
-* Message stating that the installation is complete!
-#+begin_src bash
-echo "##############################"
-echo "## defos has been installed! ##"
-echo "##############################"
-
-while true; do
-    read -p "Do you want to reboot to get your defos? [Y/n] " yn
-    case $yn in
-        [Yy]* ) reboot;;
-        [Nn]* ) break;;
-        "" ) reboot;;
-        * ) echo "Please answer yes or no.";;
-    esac
-done
-#+end_src
