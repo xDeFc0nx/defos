@@ -50,7 +50,7 @@ lastchance() {
 }
 # Let's install each package listed in the pkglist.txt file.
 sudo pacman --needed --ask 4 -Sy - <pkglist.txt
-yay -S tlauncher google-chrome betterdiscordctl --noconfirm
+yay -S tlauncher betterdiscordctl --noconfirm
 
 cd ~
 git clone https://github.com/xDeFc0nx/.dotfiles

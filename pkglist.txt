@@ -87,3 +87,4 @@ vde2
 iptables-nft
 bridge-utils
 openbsd-netcat
+chromium
