@@ -9,7 +9,7 @@
 # DESC: An installation and deployment script for DeFc0n's Xmonad desktop.
 # WARNING: Run this script at your own risk.
 # DEPENDENCIES: dialog
-yes | sudo pacman -Syu
+#yes | sudo pacman -Syu
 if [ "$(id -u)" = 0 ]; then
     echo "##################################################################"
     echo "This script MUST NOT be run as root user since it makes changes"
@@ -48,6 +48,8 @@ lastchance() {
         exit 1
     }
 }
+lastchance || error "User choose to exit."
+
 # Let's install each package listed in the pkglist.txt file.
 sudo pacman --needed --ask 4 -Sy - <pkglist.txt
 yay -S tlauncher betterdiscordctl --noconfirm
