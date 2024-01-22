@@ -1,34 +1,16 @@
 #!/usr/bin/env bash
 
- #       .___      _____
- #     __| _/_____/ ____\____  ______   Nehar Tale DeFc0n
- #    / __ |/ __ \   __\/  _ \/  ___/  https://www.github.com/xDeFc0nx/
- #   / /_/ \  ___/|  | (  <_> )___ \\
- #   \____ |\___  >__|  \____/____  >
- #        \/    \/                \/ 
- # NAME: DEFOS
- # DESC: An installation and deployment script for DeFc0n's desktop.
- # WARNING: Run this script at your own risk.
-# Get the terminal height
-terminal_height=$(tput lines)
 
-# Calculate the number of underscores needed for the top and bottom lines
-underscores=$(printf "%-${terminal_height}s" | tr ' ' '_')
+    echo "           .____      _____"
+    echo "         __| _/_____ / ____\\____  ______"
+    echo "        / __ |/ __ \\   __\\/_  _ \\/  ___/"
+    echo "       / /_/ \\  ___/|  |   /  <_> )___ \\"
+    echo "       \\____ |\\___  >__|   \\____/____  >"
+    echo "            \\/    \\/                 \\/ "
+    echo " == MY ARCH SETUP INSTALLER == "
 
-# Print the top line of underscores
-printf "%s\n" "$underscores"
 
-# Print the text block
-echo "       .___      _____"
-echo "     __| _/_____/ ____\____  ______" 
-echo "    / __ |/ __ \   __\/  _ \/  ___/"
-echo "   / /_/ \  ___/|  | (  <_> )___ \\"
-echo "   \____ |\___  >__|  \____/____  >"
-echo "        \/    \/                \/ "
-echo " == MY ARCH SETUP INSTALLER == "
 
-# Print the bottom line of underscores
-printf "%s\n" "$underscores"
 #part1
 
 echo "Installing DefOS..."
