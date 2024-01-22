@@ -20,16 +20,47 @@ lsblk
 echo "Enter the drive: "
 read drive
 cfdisk $drive 
-echo "Enter the linux partition: "
-read partition
-mkfs.ext4 $partition 
-read -p "Did you also create efi partition? [y/n]" answer
+echo "Enter EFI partition: "
+read efipartition
+mkfs.vfat -F 32 $efipartition
+
+echo "Enter the root partition: "
+read rootpartition
+mkfs.ext4 $rootpartition
+
+
+echo "Enter the home partition: "
+read homepartition
+mkfs.ext4 $homepartition
+mkdir /mnt/home
+
+
+read -p "Did you create more partitions? [y/n]" answer
 if [[ $answer = y ]] ; then
-  echo "Enter EFI partition: "
-  read efipartition
-  mkfs.vfat -F 32 $efipartition
+ 
+
+
+read -p "Did you also create games partition? [y/n]" answer
+if [[ $answer = y ]] ; then
+  echo "Enter games partition: "
+  read gamespartition
+ mkfs.ext4 $gamespartition
+ mkdir /mnt/games
+ mounnt $gamespartition /mnt/games
 fi
-mount $partition /mnt 
+
+read -p "Did you also create WMs partition? [y/n]" answer
+if [[ $answer = y ]] ; then
+  echo "Enter WMs partition: "
+  read wmpartition
+ mkfs.ext4 $wmpartition
+ mkdir /mnt/wms
+ mounnt $wmpartition /mnt/wms
+fi
+fi
+
+mount $rootpartition /mnt 
+mount $homepartition /mnt/home
 pacstrap /mnt base base-devel linux linux-firmware
 genfstab -U /mnt >> /mnt/etc/fstab
 sed '1,/^#part2$/d' `basename $0` > /mnt/arch_install2.sh
