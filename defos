@@ -1,64 +1,67 @@
 #!/usr/bin/env bash
 
-echo "#       .___      _____"
-echo "#     __| _/_____/ ____\____  ______   Nehar Tale DeFc0n"
-echo "#    / __ |/ __ \   __\/  _ \/  ___/  https://www.github.com/xDeFc0nx/"
-echo "#   / /_/ \  ___/|  | (  <_> )___ \\"
-echo "#   \____ |\___  >__|  \____/____  >"
-echo "#        \/    \/                \/ "
-echo "# NAME: DEFOS"
-echo "# DESC: An installation and deployment script for DeFc0n's desktop."
-echo "# WARNING: Run this script at your own risk."
-echo "# == MY ARCH SETUP INSTALLER == #"
+# Define ANSI color codes for formatting
+BOLD='\033[1m'
+RESET='\033[0m'
+YELLOW='\033[1;33m'
+CYAN='\033[1;36m'
+GREEN='\033[1;32m'
+
+# Banner
+echo -e "${BOLD}${YELLOW}#       .___      _____${RESET}"
+echo -e "${BOLD}${YELLOW}#     __| _/_____/ ____\\____  ______   Nehar Tale DeFc0n${RESET}"
+echo -e "${BOLD}${YELLOW}#    / __ |/ __ \\   __\\/  _ \\/  ___/  https://www.github.com/xDeFc0nx/${RESET}"
+echo -e "${BOLD}${YELLOW}#   / /_/ \\  ___/|  | (  <_> )___ \\${RESET}"
+echo -e "${BOLD}${YELLOW}#   \\____ |\\___  >__|  \\____/____  >${RESET}"
+echo -e "${BOLD}${YELLOW}#        \\/    \\/                \\/ ${RESET}"
+echo -e "${CYAN}# ${RESET}${GREEN}NAME: DEFOS${RESET}"
+echo -e "${CYAN}# ${RESET}${GREEN}DESC: An installation and deployment script for DeFc0n's desktop.${RESET}"
+echo -e "${CYAN}# ${RESET}${GREEN}WARNING: Run this script at your own risk.${RESET}"
+echo -e "${CYAN}# ${RESET}${GREEN}== MY ARCH SETUP INSTALLER == #${RESET}"
 
 #part1
 printf '\033c'
-echo "Installing DefOS..."
+echo -e "${BOLD}Installing DefOS...${RESET}"
 sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
 pacman --noconfirm -Sy archlinux-keyring
 loadkeys us
 timedatectl set-ntp true
 lsblk
-echo "Enter the drive: "
+echo -e "${BOLD}Enter the drive:${RESET} "
 read drive
-cfdisk $drive 
-echo "Enter EFI partition: "
+cfdisk $drive
+echo -e "${BOLD}Enter EFI partition:${RESET} "
 read efipartition
 mkfs.vfat -F 32 $efipartition
 
-echo "Enter the root partition: "
+echo -e "${BOLD}Enter the root partition:${RESET} "
 read rootpartition
 mkfs.ext4 $rootpartition
 
-
-echo "Enter the home partition: "
+echo -e "${BOLD}Enter the home partition:${RESET} "
 read homepartition
 mkfs.ext4 $homepartition
 mkdir /mnt/home
 
-
-read -p "Did you create more partitions? [y/n]" answer
+read -p "${BOLD}Did you create more partitions? [y/n]${RESET}" answer
 if [[ $answer = y ]] ; then
- 
+    read -p "${BOLD}Did you also create games partition? [y/n]${RESET}" answer
+    if [[ $answer = y ]] ; then
+        echo -e "${BOLD}Enter games partition:${RESET} "
+        read gamespartition
+        mkfs.ext4 $gamespartition
+        mkdir /mnt/games
+        mount $gamespartition /mnt/games
+    fi
 
-
-read -p "Did you also create games partition? [y/n]" answer
-if [[ $answer = y ]] ; then
-  echo "Enter games partition: "
-  read gamespartition
- mkfs.ext4 $gamespartition
- mkdir /mnt/games
- mounnt $gamespartition /mnt/games
-fi
-
-read -p "Did you also create WMs partition? [y/n]" answer
-if [[ $answer = y ]] ; then
-  echo "Enter WMs partition: "
-  read wmpartition
- mkfs.ext4 $wmpartition
- mkdir /mnt/wms
- mounnt $wmpartition /mnt/wms
-fi
+    read -p "${BOLD}Did you also create WMs partition? [y/n]${RESET}" answer
+    if [[ $answer = y ]] ; then
+        echo -e "${BOLD}Enter WMs partition:${RESET} "
+        read wmpartition
+        mkfs.ext4 $wmpartition
+        mkdir /mnt/wms
+        mount $wmpartition /mnt/wms
+    fi
 fi
 
 mount $rootpartition /mnt 
