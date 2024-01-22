@@ -1,18 +1,27 @@
 #!/usr/bin/env bash
 
-echo "#       .___      _____"
-echo "#     __| _/_____/ ____\____  ______   Nehar Tale DeFc0n"
-echo "#    / __ |/ __ \   __\/  _ \/  ___/  https://www.github.com/xDeFc0nx/"
-echo "#   / /_/ \  ___/|  | (  <_> )___ \\"
-echo "#   \____ |\___  >__|  \____/____  >"
-echo "#        \/    \/                \/ "
-echo "# NAME: DEFOS"
-echo "# DESC: An installation and deployment script for DeFc0n's desktop."
-echo "# WARNING: Run this script at your own risk."
-echo "# == MY ARCH SETUP INSTALLER == #"
+ #       .___      _____
+ #     __| _/_____/ ____\____  ______   Nehar Tale DeFc0n
+ #    / __ |/ __ \   __\/  _ \/  ___/  https://www.github.com/xDeFc0nx/
+ #   / /_/ \  ___/|  | (  <_> )___ \\
+ #   \____ |\___  >__|  \____/____  >
+ #        \/    \/                \/ 
+ # NAME: DEFOS
+ # DESC: An installation and deployment script for DeFc0n's desktop.
+ # WARNING: Run this script at your own risk.
+
+printf "%80s\n" "_________________________________________________________________"
+printf "%39s       .___      _____\n"
+printf "%38s     __| _/_____/ ____\____  ______\n" 
+printf "%38s    / __ |/ __ \   __\/  _ \/  ___/\n"
+printf "%39s   / /_/ \  ___/|  | (  <_> )___ \\ \n"
+printf "%39s   \____ |\___  >__|  \____/____  >\n"
+printf "%40s        \/    \/                \/ \n"
+printf "%42s == MY ARCH SETUP INSTALLER == \n "
+printf "%80s\n" "_________________________________________________________________"
 
 #part1
-printf '\033c'
+
 echo "Installing DefOS..."
 sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
 pacman --noconfirm -Sy archlinux-keyring
@@ -48,7 +57,7 @@ if [[ $answer = y ]] ; then
   read gamespartition
  mkfs.ext4 $gamespartition
  mkdir /mnt/games
- mounnt $gamespartition /mnt/games
+ mount $gamespartition /mnt/games
 fi
 
 read -p "Did you also create WMs partition? [y/n]" answer
@@ -57,7 +66,7 @@ if [[ $answer = y ]] ; then
   read wmpartition
  mkfs.ext4 $wmpartition
  mkdir /mnt/wms
- mounnt $wmpartition /mnt/wms
+ mount $wmpartition /mnt/wms
 fi
 fi
 
@@ -104,7 +113,7 @@ pacman -S --noconfirm xorg-server xorg-xinit xorg-xkill xorg-xsetroot xorg-xback
      fzf man-db xwallpaper python-pywal unclutter xclip maim \
      zip unzip unrar p7zip xdotool papirus-icon-theme brightnessctl  \
      dosfstools ntfs-3g git sxhkd zsh pipewire pipewire-pulse \
-     emacs-nox arc-gtk-theme rsync qutebrowser dash \
+     emacs-nox arc-gtk-theme rsync brave dash \
      xcompmgr libnotify dunst slock jq aria2 cowsay \
      dhcpcd connman wpa_supplicant rsync pamixer mpd ncmpcpp \
      zsh-syntax-highlighting xdg-user-dirs libconfig \
