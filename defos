@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
-#       .___      _____
-#     __| _/_____/ ____\____  ______   Nehar Tale DeFc0n
-#    / __ |/ __ \   __\/  _ \/  ___/  https://www.github.com/xDeFc0nx/
-#   / /_/ \  ___/|  | (  <_> )___ \
-#   \____ |\___  >__|  \____/____  >
-#        \/    \/                \/
-# NAME: DEFOS
-# DESC: An installation and deployment script for DeFc0n's  desktop.
-# WARNING: Run this script at your own risk.
-# == MY ARCH SETUP INSTALLER == #
+
+echo "#       .___      _____"
+echo "#     __| _/_____/ ____\____  ______   Nehar Tale DeFc0n"
+echo "#    / __ |/ __ \   __\/  _ \/  ___/  https://www.github.com/xDeFc0nx/"
+echo "#   / /_/ \  ___/|  | (  <_> )___ \\"
+echo "#   \____ |\___  >__|  \____/____  >"
+echo "#        \/    \/                \/ "
+echo "# NAME: DEFOS"
+echo "# DESC: An installation and deployment script for DeFc0n's desktop."
+echo "# WARNING: Run this script at your own risk."
+echo "# == MY ARCH SETUP INSTALLER == #"
+
 #part1
 printf '\033c'
 echo "Installing DefOS..."
