@@ -35,6 +35,7 @@ mkfs.ext4 $rootpartition
 echo "Enter the home partition: "
 read homepartition
 mkfs.ext4 $homepartition
+
 mkdir /mnt/home
 
 
@@ -135,11 +136,16 @@ cd $HOME
 
 # installing yay
 
-curl -L -O https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD
-makepkg -si
-rm -rf PKGBUILD
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si 
+cd ~
 
-yay -S sddm-sugar-candy-git edex-ui-appimage --noconfirm
+
+yay -S sddm-sugar-candy-git edex-ui-appimage brave --noconfirm
+
+# update sddm 
+sudo sed -i 's/^Current=.*/Current=candy-sugar/' /etc/sddm.conf
 
 # cloning .dotfiles
 
@@ -147,11 +153,11 @@ git clone https://github.com/xDeFc0nx/dotfiles.git
 
 # copyng the files 
 
-cp ~/dotfiles/.config ~/.config
-cp ~/dotfiles/Wallpapers ~/Wallpapers/
-cp ~/dotfiles//scripts ~/scripts
-cp ~/dotfiles/.xinitrc ~/.xinitrc
-cp ~/dotfiles/.xsession ~/.xsession
+cp -r ~/dotfiles/.config ~/.config
+cp -r ~/dotfiles/Wallpapers ~/Wallpapers/
+cp -r ~/dotfiles//scripts ~/scripts
+cp -r ~/dotfiles/.xinitrc ~/.xinitrc
+cp -r ~/dotfiles/.xsession ~/.xsession
 
 
 # dwm: Window Manager
