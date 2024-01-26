@@ -15,7 +15,8 @@
 
 echo "Installing DefOS..."
 sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
-pacman --noconfirm -Sy archlinux-keyring
+pacman --noconfirm -Sy archlinux-keyring networkmanager
+systemctl enable networkmanager
 loadkeys us
 timedatectl set-ntp true
 lsblk
@@ -71,6 +72,7 @@ arch-chroot /mnt ./arch_install2.sh
 exit 
 
 #part2
+
 printf '\033c'
 pacman -S --noconfirm sed
 sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
@@ -98,19 +100,20 @@ sed -i 's/quiet/pci=noaer/g' /etc/default/grub
 sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
-pacman -S --noconfirm xorg-server xorg-xinit xorg-xkill xorg-xsetroot xorg-xbacklight xorg-xprop \
+pacman -S --noconfirm xorg-server xorg-xinit xorg-xkill xorg-xsetroot xorg-xbacklight xorg-xprop xorg-xrandr xorg-xset xorgproto xterm xwallpaper xxhash \
      noto-fonts noto-fonts-emoji noto-fonts-cjk ttf-jetbrains-mono ttf-joypixels ttf-font-awesome \
-     sxiv mpv zathura zathura-pdf-mupdf ffmpeg imagemagick  \
-     fzf man-db xwallpaper python-pywal unclutter xclip maim \
+     sxiv mpv ffmpeg imagemagick  \
+     fzf xwallpaper python-pywal unclutter xclip maim \
      zip unzip unrar p7zip xdotool papirus-icon-theme brightnessctl  \
-     dosfstools ntfs-3g git sxhkd zsh pipewire pipewire-pulse \
-     emacs-nox arc-gtk-theme rsync brave dash \
-     xcompmgr libnotify dunst slock jq aria2 cowsay \
+     dosfstools ntfs-3g git sxhkd fish pipewire net-tools \
+     arc-gtk-theme alacritty lolcat neovim vim dash \
+     xcompmgr libnotify dunst slock jq aria2 cowsay pacman-contrib  \
      dhcpcd connman wpa_supplicant rsync pamixer mpd ncmpcpp \
-     zsh-syntax-highlighting xdg-user-dirs libconfig \
-     bluez bluez-utils
+     xdg-user-dirs libconfig sddm alsa-utils exa \
+     bluez bluez-utils 
 
 systemctl enable connman.service 
+systemctl enable sddm
 rm /bin/sh
 ln -s dash /bin/sh
 echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
@@ -119,52 +122,47 @@ read username
 useradd -m -G wheel -s /bin/zsh $username
 passwd $username
 echo "Pre-Installation Finish Reboot now"
-# ai3_path=/home/$username/arch_install3.sh
-# sed '1,/^#part3$/d' arch_install2.sh > $ai3_path
-# chown $username:$username $ai3_path
-# chmod +x $ai3_path
-# su -c $ai3_path -s /bin/sh $username
+ ai3_path=/home/$username/arch_install3.sh
+ sed '1,/^#part3$/d' arch_install2.sh > $ai3_path
+ chown $username:$username $ai3_path
+ chmod +x $ai3_path
+ su -c $ai3_path -s /bin/sh $username
 exit 
 
 #part3
 printf '\033c'
 cd $HOME
-git clone --separate-git-dir=$HOME/.dotfiles https://github.com/bugswriter/dotfiles.git tmpdotfiles
-rsync --recursive --verbose --exclude '.git' tmpdotfiles/ $HOME/
-rm -r tmpdotfiles
-# dwm: Window Manager
-git clone --depth=1 https://github.com/Bugswriter/dwm.git ~/.local/src/dwm
-sudo make -C ~/.local/src/dwm install
 
-# st: Terminal
-git clone --depth=1 https://github.com/Bugswriter/st.git ~/.local/src/st
-sudo make -C ~/.local/src/st install
+# installing yay
+
+curl -L -O https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD
+makepkg -si
+rm -rf PKGBUILD
+
+yay -S sddm-sugar-candy-git edex-ui-appimage --noconfirm
+
+# cloning .dotfiles
+
+git clone https://github.com/xDeFc0nx/dotfiles.git
+
+# copyng the files 
+
+cp ~/dotfiles/.config ~/.config
+cp ~/dotfiles/Wallpapers ~/Wallpapers/
+cp ~/dotfiles//scripts ~/scripts
+cp ~/dotfiles/.xinitrc ~/.xinitrc
+cp ~/dotfiles/.xsession ~/.xsession
+
+
+# dwm: Window Manager
+ sudo make -C ~/.config/dwm/ clean install
 
 # dmenu: Program Menu
-git clone --depth=1 https://github.com/Bugswriter/dmenu.git ~/.local/src/dmenu
-sudo make -C ~/.local/src/dmenu install
+ sudo make -C ~/.config/dmenu/ clean install
 
-# dmenu: Dmenu based Password Prompt
-git clone --depth=1 https://github.com/ritze/pinentry-dmenu.git ~/.local/src/pinentry-dmenu
-sudo make -C ~/.local/src/pinentry-dmenu clean install
+# slstatus: system status 
 
-# dwmblocks: Status bar for dwm
-git clone --depth=1 https://github.com/bugswriter/dwmblocks.git ~/.local/src/dwmblocks
-sudo make -C ~/.local/src/dwmblocks install
+ sudo make -C ~/.config/slstatus/ clean install
 
-# pikaur: AUR helper
-git clone https://aur.archlinux.org/pikaur.git
-cd pikaur
-makepkg -fsri
-cd
-pikaur -S libxft-bgra-git yt-dlp-drop-in
-mkdir dl dox imp music pix pub code
-
-ln -s ~/.config/x11/xinitrc .xinitrc
-ln -s ~/.config/shell/profile .zprofile
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-mv ~/.oh-my-zsh ~/.config/zsh/oh-my-zsh
-rm ~/.zshrc ~/.zsh_history
-alias dots='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-dots config --local status.showUntrackedFiles no
+config config --local status.showUntrackedFiles no
 exit
