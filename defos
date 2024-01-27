@@ -111,7 +111,7 @@ pacman -S --noconfirm xorg-server xorg-xinit xorg-xkill xorg-xsetroot xorg-xback
      xcompmgr libnotify dunst slock jq aria2 cowsay pacman-contrib  \
      dhcpcd connman wpa_supplicant rsync pamixer mpd ncmpcpp \
      xdg-user-dirs libconfig sddm alsa-utils exa \
-     bluez bluez-utils 
+     bluez bluez-utils feh 
 
 systemctl enable connman.service 
 systemctl enable sddm
@@ -153,9 +153,9 @@ git clone https://github.com/xDeFc0nx/dotfiles.git
 
 # copyng the files 
 
-cp -r ~/dotfiles/.config ~/.config
-cp -r ~/dotfiles/Wallpapers ~/Wallpapers/
-cp -r ~/dotfiles//scripts ~/scripts
+cp -r ~/dotfiles/.config/* ~/.config
+cp -r ~/dotfiles/Wallpapers/* ~/Wallpapers/
+cp -r ~/dotfiles//scripts/* ~/scripts
 cp -r ~/dotfiles/.xinitrc ~/.xinitrc
 cp -r ~/dotfiles/.xsession ~/.xsession
 
