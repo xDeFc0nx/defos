@@ -1,7 +1,7 @@
 #+TITLE: DEFOS
-#+DESCRIPTION: A post-installation script to install DT's xmonad desktop on an Arch-based distro.
+#+DESCRIPTION: A post-installation script to install defOS desktop on an Arch-based distro.
 #+AUTHOR: Nehar Tale (DeFc0n)
-#+PROPERTY: header-args :tangle defos
+#+PROPERTY: header-args :tangle defOS
 #+STARTUP: showeverything
 
 * TABLE OF CONTENTS :toc:
