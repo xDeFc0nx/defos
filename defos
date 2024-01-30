@@ -111,7 +111,7 @@ pacman -S --noconfirm xorg-server xorg-xinit xorg-xkill xorg-xsetroot xorg-xback
      xcompmgr libnotify dunst slock jq aria2 cowsay pacman-contrib  \
      dhcpcd connman wpa_supplicant rsync pamixer mpd ncmpcpp \
      xdg-user-dirs libconfig sddm alsa-utils exa \
-     bluez bluez-utils feh plymouth flameshot
+     bluez bluez-utils feh plymouth flameshot ninja meson uthash
 
 systemctl enable connman.service 
 systemctl enable sddm
@@ -184,6 +184,13 @@ cp -r ~/dotfiles/dwm.dekstop /usr/share/xsessions/dwm.desktop
 # slstatus: system status 
 
  sudo make -C ~/.config/slstatus/ clean install
+
+# picom setup 
+cd ~/.config/picom 
+meson setup --buildtype=release build
+ninja -C build install
+
+cd ~
 
 config config --local status.showUntrackedFiles no
 exit
