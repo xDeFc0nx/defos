@@ -1,5 +1,5 @@
 #+TITLE: DEFOS
-#+DESCRIPTION: A post-installation script to install defOS desktop on an Arch-based distro.
+#+DESCRIPTION: A installation script to install defOS desktop on an Arch-based distro.
 #+AUTHOR: Nehar Tale (DeFc0n)
 #+PROPERTY: header-args :tangle defOS
 #+STARTUP: showeverything
@@ -13,7 +13,7 @@
 #+CAPTION: defos Scrot
 #+ATTR_HTML: :alt defos scrot :title defos Scrot :align left
 
-defos is the name that I have chosen for my post-installation script that will deploy my Xmonad config, my Emacs config, as well as associated programs that are needed to create a proper "desktop" experience.  defos should work on Arch Linux or any Arch-based distribution.  The programs that will be installed include Xmonad, Xmobar, Doom Emacs, Fish and other programs needed to recreate DT's XMonad desktop.  defos is only for x86_64 architecture and will not work on ARM devices such as the Raspberry Pi.
+defos is the name that I have chosen for my installation script that will install arch-linux and deploy my config, my neovim config, as well as associated programs that are needed to create a proper "desktop" experience.  defos should work on Arch Linux or any Arch-based distribution.  The programs that will be installed include pdwm, slstatus, Fish and other programs.  defos is only for x86_64 architecture and will not work on ARM devices such as the Raspberry Pi.
 
 * Installing defos
 ** Installation instructions
