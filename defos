@@ -157,8 +157,8 @@ sudo plymouth-set-defaul-theme -R bgrt
 # setup sddm theme
 
 sudo touch /etc/sddm.conf
-sudo sed -i 's/^Current=.*/Current=sugar-candy/' /etc/sddm.conf
 
+echo -e "[Theme]\nCurrent=sugar-candy" | sudo tee -a /etc/sddm.conf
 # cloning .dotfiles
 
 git clone https://github.com/xDeFc0nx/dotfiles.git
@@ -166,8 +166,8 @@ git clone https://github.com/xDeFc0nx/dotfiles.git
 # copyng the files 
 
 cp -r ~/dotfiles/.config/* ~/.config
-cp -r ~/dotfiles/Wallpapers/* ~/Wallpapers/
-cp -r ~/dotfiles//scripts/* ~/scripts
+cp -r ~/dotfiles/Wallpapers/ ~/Wallpapers/
+cp -r ~/dotfiles//scripts/ ~/scripts
 cp -r ~/dotfiles/.xinitrc ~/.xinitrc
 cp -r ~/dotfiles/.xsession ~/.xsession
 sudo mkdir -p /usr/share/xsessions/
