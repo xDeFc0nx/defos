@@ -156,6 +156,7 @@ sudo plymouth-set-defaul-theme -R bgrt
 
 # setup sddm theme
 
+sudo touch /etc/sddm.conf
 sudo sed -i 's/^Current=.*/Current=sugar-candy/' /etc/sddm.conf
 
 # cloning .dotfiles
