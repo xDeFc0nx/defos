@@ -16,7 +16,6 @@
 echo "Installing DefOS..."
 sed -i "s/^#ParallelDownloads = 5$/ParallelDownloads = 15/" /etc/pacman.conf
 pacman --noconfirm -Sy archlinux-keyring networkmanager
-systemctl enable networkmanager
 loadkeys us
 timedatectl set-ntp true
 lsblk
@@ -115,12 +114,13 @@ pacman -S --noconfirm xorg-server xorg-xinit xorg-xkill xorg-xsetroot xorg-xback
 
 systemctl enable connman.service 
 systemctl enable sddm
+systemctl enable networkmanager
 rm /bin/sh
 ln -s dash /bin/sh
 echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 echo "Enter Username: "
 read username
-useradd -m -G wheel -s /bin/zsh $username
+useradd -m -G wheel -s /bin/fish $username
 passwd $username
 echo "Pre-Installation Finish Reboot now"
  ai3_path=/home/$username/arch_install3.sh
@@ -151,7 +151,7 @@ sudo sed -i '/^HOOKS=/ s/)$/ plymouth)/' /etc/mkinitcpio.conf
 
 sudo mkinitcpio -p linux
 
-sudo sed -i '/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/)$/ splash /' /etc/default/grub
+sudo sed -i '/^GRUB_CMDLINE_LINUX_DEFAULT=/ s/"$/ quiet splash"/' /etc/default/grub
 
 sudo grub-mkconfig -o /boot/grub/grub.cfg
 
@@ -172,6 +172,7 @@ cp -r ~/dotfiles/Wallpapers/* ~/Wallpapers/
 cp -r ~/dotfiles//scripts/* ~/scripts
 cp -r ~/dotfiles/.xinitrc ~/.xinitrc
 cp -r ~/dotfiles/.xsession ~/.xsession
+sudo mkdir -p /usr/share/xsessions/
 cp -r ~/dotfiles/dwm.dekstop /usr/share/xsessions/dwm.desktop
 
 
