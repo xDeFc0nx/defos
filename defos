@@ -173,8 +173,8 @@ sudo mkdir -p /usr/share/xsessions/
 cp -r ~/dotfiles/dwm.dekstop /usr/share/xsessions/dwm.desktop
 
 
-# dwm: Window Manager
- sudo make -C ~/.config/dwm/ clean install
+# pdwm: Window Manager
+ sudo make -C ~/.config/pdwm/ clean install
 
 # dmenu: Program Menu
  sudo make -C ~/.config/dmenu/ clean install
