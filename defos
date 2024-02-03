@@ -41,7 +41,9 @@ if [[ $answer = y ]]; then
 		echo "Enter games partition: "
 		read gamespartition
 		mkfs.ext4 $gamespartition
+
 		mkdir /mnt/games
+
 		mount $gamespartition /mnt/games
 	fi
 
@@ -50,7 +52,9 @@ if [[ $answer = y ]]; then
 		echo "Enter WMs partition: "
 		read wmpartition
 		mkfs.ext4 $wmpartition
+
 		mkdir /mnt/wms
+    
 		mount $wmpartition /mnt/wms
 	fi
 fi
