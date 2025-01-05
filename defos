@@ -72,7 +72,7 @@ exit
 
 printf '\033c'
 pacman -S --noconfirm sed
-ln -sf /usr/share/zoneinfo/Asia/Kolkata /etc/localtime
+ln -sf /usr/share/zoneinfo/Europe/Skopje /etc/localtime
 hwclock --systohc
 echo "en_US.UTF-8 UTF-8" >>/etc/locale.gen
 locale-gen
@@ -96,20 +96,24 @@ sed -i 's/quiet/pci=noaer/g' /etc/default/grub
 sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/g' /etc/default/grub
 grub-mkconfig -o /boot/grub/grub.cfg
 
-pacman -S --noconfirm xorg-server xorg-xinit xorg-xkill xorg-xsetroot xorg-xbacklight xorg-xprop xorg-xrandr xorg-xset xorgproto xterm xwallpaper xxhash \
-	noto-fonts noto-fonts-emoji noto-fonts-cjk ttf-jetbrains-mono ttf-joypixels ttf-font-awesome ttf-dejavu \
-	sxiv mpv ffmpeg imagemagick \
-	fzf xwallpaper python-pywal unclutter xclip maim \
-	zip unzip unrar p7zip xdotool papirus-icon-theme brightnessctl \
-	dosfstools ntfs-3g git sxhkd fish pipewire net-tools \
-	arc-gtk-theme alacritty lolcat neovim vim dash \
-	xcompmgr libnotify dunst slock jq aria2 cowsay pacman-contrib \
-	dhcpcd connman wpa_supplicant rsync pamixer mpd ncmpcpp \
-	xdg-user-dirs libconfig sddm alsa-utils exa \
-	bluez bluez-utils feh plymouth flameshot ninja meson uthash \
-	clang shfmt
+pacman -S --noconfirm \
+    noto-fonts noto-fonts-emoji noto-fonts-cjk ttf-jetbrains-mono \
+    ttf-joypixels ttf-font-awesome ttf-dejavu \
+    mpv ffmpeg imagemagick \
+    fzf python-pywal wl-clipboard grim slurp \
+    zip unzip unrar p7zip papirus-icon-theme brightnessctl \
+    dosfstools ntfs-3g git fish pipewire net-tools \
+    arc-gtk-theme alacritty lolcat neovim vim dash \
+    libnotify dunst jq aria2 cowsay pacman-contrib \
+    dhcpcd connman wpa_supplicant rsync pamixer mpd ncmpcpp \
+    libconfig alsa-utils exa \
+    wayland wayland-protocols xorg-xwayland \
+    sway swaybg swayidle swaylock \
+    bluez bluez-utils feh plymouth flameshot ninja meson uthash \
+    clang shfmt
 
-systemctl enable connman.service
+
+systemctl enable mpd
 systemctl enable sddm
 systemctl enable networkmanager
 echo "%wheel ALL=(ALL) NOPASSWD: ALL" >>/etc/sudoers
@@ -136,7 +140,13 @@ cd yay
 makepkg -si
 cd ~
 
-yay -S sddm-sugar-candy-git edex-ui-appimage brave-bin --noconfirm
+yay -S  --noconfirm sddm-sugar-candy-git  brave-bin  hyprland kitty waybar \
+    swaybg swaylock-effects wofi wlogout mako thunar \
+    ttf-jetbrains-mono-nerd noto-fonts-emoji \
+    polkit-gnome python-requests starship \
+    swappy grim slurp pamixer brightnessctl gvfs \
+    bluez bluez-utils lxappearance xfce4-settings \
+    dracula-gtk-theme dracula-icons-git xdg-desktop-portal-hyprland
 
 # plymouth configuration
 
@@ -150,39 +160,21 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 
 sudo plymouth-set-defaul-theme -R bgrt
 
-# setup sddm theme
-
-sudo touch /etc/sddm.conf
-
-echo -e "[Theme]\nCurrent=sugar-candy" | sudo tee -a /etc/sddm.conf
 # cloning .dotfiles
 
-git clone https://github.com/xDeFc0nx/dotfiles.git
+git clone https://github.com/ahmad9059/dotfiles
 
 # copyng the files
 
 cp -r ~/dotfiles/.config/* ~/.config
-cp -r ~/dotfiles/Wallpapers/ ~/Wallpapers/
-cp -r ~/dotfiles//scripts/ ~/scripts
-cp -r ~/dotfiles/.xinitrc ~/.xinitrc
-cp -r ~/dotfiles/.xsession ~/.xsession
-sudo mkdir -p /usr/share/xsessions/
-cp -r ~/dotfiles/dwm.dekstop /usr/share/xsessions/dwm.desktop
 
-# pdwm: Window Manager
-sudo make -C ~/.config/pdwm/ clean install
 
-# dmenu: Program Menu
-sudo make -C ~/.config/dmenu/ clean install
 
-# slstatus: system status
-
-sudo make -C ~/.config/slstatus/ clean install
 
 # picom setup
-cd ~/.config/picom
-meson setup --buildtype=release build
-ninja -C build install
+# cd ~/.config/picom
+# meson setup --buildtype=release build
+# ninja -C build install
 
 cd ~
 
