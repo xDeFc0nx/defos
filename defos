@@ -99,13 +99,13 @@ grub-mkconfig -o /boot/grub/grub.cfg
 pacman -S --noconfirm \
     noto-fonts noto-fonts-emoji noto-fonts-cjk ttf-jetbrains-mono \
     ttf-joypixels ttf-font-awesome ttf-dejavu \
-    mpv ffmpeg imagemagick \
+    mpv ffmpeg imagemagick plymouth \
     fzf python-pywal wl-clipboard grim slurp \
     zip unzip unrar p7zip papirus-icon-theme brightnessctl \
     dosfstools ntfs-3g git fish pipewire net-tools \
     arc-gtk-theme alacritty lolcat neovim vim dash \
     libnotify dunst jq aria2 cowsay pacman-contrib \
-    dhcpcd connman wpa_supplicant rsync pamixer mpd ncmpcpp \
+    dhcpcd wpa_supplicant rsync pamixer mpd ncmpcpp \
     libconfig alsa-utils exa \
     wayland wayland-protocols xorg-xwayland \
     sway swaybg swayidle swaylock \
@@ -162,11 +162,11 @@ sudo plymouth-set-defaul-theme -R bgrt
 
 # cloning .dotfiles
 
-git clone https://github.com/ahmad9059/dotfiles
+# git clone https://github.com/ahmad9059/dotfiles
 
 # copyng the files
 
-cp -r ~/dotfiles/.config/* ~/.config
+# cp -r ~/dotfiles/.config/* ~/.config
 
 
 
